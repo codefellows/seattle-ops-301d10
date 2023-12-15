@@ -2,23 +2,57 @@
 
 ## Scenario & Problem Domain
 
-You team is tasked with updating the core IT infrastructure of a recent client company acquisition. This young, innovative startup aligns well with the mission of the client company; unfortunately, its IT systems do not.
+Your team is a MSP and has been selected by a growing technology company, that is in need of a network upgrade to support its expanding workforce and enhance data security. The company currently has 20 employees working in different departments, including Sales and Marketing, Research and Development, and IT Management.
 
-Your team believes that trying to integrate the acquisition's existing intranet directly into the rest of the client company will result in technical debt. Since the acquisition is still a small startup, your team believes it will be better to simply build out a new infrastructure which is in line with the rest of the client company's holdings.
+The CEO has emphasized the importance of a secure and efficient network infrastructure that enables seamless communication between the office and the home company's central server. Additionally, the company wants to implement measures to safeguard data, improve collaboration through file shares, ensure business continuity with a robust backup solution, and establish an IT onboarding policy.
 
-However, you still need to convince your leadership by demonstrating that your team is up to the challenge and can perform this kind of task in a repeatable, efficient manner.
+## Project Objectives:
 
-Your team's task is to create a plan to make this acquistion successful and meet your client company's needs, then present your solutions to the client company on presentation day.
+### Network Design and Topology:
 
-The operations chosen for this demonstration are:
-- Develop a repeatable means of standing up a DC to oversee the new acquisition's network. The AD will need to automatically populate users and OUs in accordance with the organizational chart.
-  - Objective: as a team, develop a Powershell script to be executed on a new installation of Windows Server.
-    - This should be written as a single script, though it can be organized into different files.
-    - The VM will need to reboot at least once while the script is performing its tasks.
-      - Ways that students got their script to continue after reboot:
-        - programmed the next bit of the script to the Windows startup folder (this is probably the cleverest)
-    - How will you make sure the script completes its operations? Is there a way to avoid manually restarting/continuing the script after a reboot?
-    - Each individual of the team is to contribute their share of the overall script and document their individual contribution. The final script should reflect an equal effort from all team members.
+- **Objective:**
+  - Design a network topology that optimizes communication between the office and the central server.
+  - Consider the physical layout of the office space and the placement of virtual machines representing computers in different departments.
+
+### VPN Setup:
+
+- **Objective:**
+  - Build a site-to-site VPN tunnel between the office router (virtual machine) and the home company's central server (virtual machine)
+  - Alter at least one parameter compared to what was performed in class (e.g. router used, VPN protocol used, introducing a cloud component, etc.)
+  - Ensure that the VPN connection is secure, reliable, and allows for encrypted data transfer.
+  - Demonstrate successful access to a file server, Active Directory, or other network resource on the other end of the tunnel.
+
+### VLAN Implementation:
+
+- **Objective:**
+  - Create VLANs to segregate network traffic based on departments:
+    - VLAN 10: Management (Virtual Machine - Server)
+    - VLAN 20: Sales and Marketing (Virtual Machine - Computer 1)
+    - VLAN 30: Research and Development (Virtual Machine - Computer 2)
+    - VLAN 40: Future Expansion (Virtual Machine - Computer 3)
+
+### Backup Solution:
+
+- **Objective:**
+  - Develop a backup solution that includes both on-site and off-site components.
+  - Schedule regular backups to ensure data integrity and quick recovery in case of data loss.
+
+### File Shares:
+
+- **Objectives:**
+  - Set up separate file shares in the central server based on departments to facilitate collaboration among virtual machines.
+  - Mount the file shares to the corresponding workstations.
+  - Implement access controls to ensure data security and privacy.
+
+### Security Measures:
+
+- **Objectives:**
+  - Implement firewalls, antivirus solutions, and other security measures to protect the network from cyber threats.
+
+### Windows Server Deployment and Domain Controller Setup:
+
+- **Objectives:**
+  - Develop scripts (PowerShell or other scripting language) to automate the deployment of a Windows Server (Virtual Machine).
     - Minimum operations this script should perform:
       - Fully standup all requisite services to make the server into a DC
       - Assign the Windows Server VM a static IPv4 address and a DNS
@@ -26,14 +60,48 @@ The operations chosen for this demonstration are:
       - Rename the Windows Server VM
       - Installs AD-Domain-Services
       - Create an AD Forest, Organizational Units (OU), and users
-- Develop a secure solution for data transmission between two networks, and demonstrate successful resource access in your upcoming presentation to the executive team.
-  - Objective:
-    - Build a site-to-site VPN tunnel
-    - Alter at least one parameter compared to what was performed in class (e.g. router used, VPN protocol used, introducing a cloud component, etc.)
-    - Demonstrate successful access to a file server, Active Directory, or other network resource on the other end of the tunnel
-- The client company's leadership has concerns about the local network security of the new company, if the acquisition's intranet to going to be joined to the client company. You will need to demonstrate implementation of some form of network access control that provides a healthy level of AAA security management.
-  - Objective: Deploy a RADIUS system that raises a captive portal for new network users and authenticates them using AD credentials.
+  - Configure the server to act as both a DNS server and a Domain Controller.
+  - Integrate the new server into the existing network infrastructure.
+
+### Virtual Machine Deployment:
+
+- **Objectives:**
+  - Deploy virtual machines for the server, router, and three computers representing different departments.
+  - Ensure each computer is associated with the correct VLAN.
+
+### IT Onboarding Policy:
+
+- **Objectives:**
+  - Develop an IT onboarding policy outlining the procedures for new employees joining the company.
+  - Include guidelines for account creation, device setup, network access, and security training.
+  - Ensure the policy aligns with industry best practices and the specific needs of the company.
+
+### Documentation:
+
+- **Objectives:**
+  - Create comprehensive documentation that covers the following:
+    - Network design
+    - Configurations
+    - Virtual machine deployments
+    - Scripting details
+    - IT onboarding policy
+
+The documentation should serve as a reference for future maintenance and upgrades.
+
 - What other possible vulnerabilities is your team concerned about? Does your team have any additional suggestions or solutions to any oversight?
+
+### Client Company and Org Chart
+
+- **Objective:**
+  - Use your favorite AI tool to generate a fictional client company, acquired company and org chart. This is your opportunity to be creative!
+
+Try AI prompts like:
+
+- "Build me a fictional org chart, including an executive team and at least 4 different roles in each department, using movie characters."
+- "Can you add an additional smaller company that is being acquired by the above org chart?
+- "Can you give me a short description about the acquired company?"
+- "How do I structure an AWS VPC to fit this org chart?"
+- "Which subnets should be public and private?"
 
 ## Stretch Goal
 
@@ -50,24 +118,13 @@ Your client company has been wanting to move their physical infrastructure to th
 
 > Tip: You can use AI tooling to help you generate storylines to validate your infrastructure design choices.
 
-## Client Company and Org Chart
-
-Use your favorite AI tool to generate a fictional client company, acquired company and org chart. This is your opportunity to be creative!
-
-Try AI prompts like:
-- "Build me a fictional org chart, including an executive team and at least 4 different roles in each department, using disney movie characters."
-- "Can you add an additional smaller company that is being acquired by the above org chart?
-- "Can you give me a short description about the acquired company?"
-- "How do I structure an AWS VPC to fit this org chart?"
-- "Which subnets should be public and private?"
-
 ## Assignments & Deliverables
 
 - Keep an eye on Canvas for assignments due this week.
 - Remember to complete nightly Project Report assignments. These assignments are easy to forget as you get swept up in interesting project subject matter.
 - Necessities such as the Team Agreement (conflict resolution, etc.) and the Project Plan will be created in your Project Prep assignments. Instructor approval is required before progressing to the next Project Prep assignment.
 - You will need to submit a preliminary link to your deliverables for instructor review a few days before presentations.
-- You will need to give give a practice presentation to your instructor. Make this as close as possible to how you plan to present -- try not to break character, give assides or explanations, or engage in crosstalk.
+- You will need to give give a practice presentation to your instructor. Make this as close as possible to how you plan to present -- try not to break character, give asides or explanations, or engage in crosstalk.
 - By demo day, you'll need these deliverables assembled:
   - Demo day slide deck
   - Project Reports
@@ -95,6 +152,7 @@ Your team will practice your presentation prior to the final presentation day. T
 Practice and prepare your technical demonstrations in advance of demo day to rule out any quirks/bugs.
 
 General slide deck guidelines:
+
 - The presentation slides must use the aesthetic formatting of the [template slide deck](https://docs.google.com/presentation/d/1NeXKKEpjK2DDme8EwlZBsJndUqIgGYzWrY6FAYtNTf0/edit).
   - Remember to create your own copy of the template and do not edit the template itself.
 - Ensure your timing is no more than 20 minutes long, including some time at the end for questions.
@@ -157,7 +215,7 @@ Components of the presentation must include:
 
 Submit to instructor a single link to your Github Org. All team members are to contribute an equal share to documentation corresponding to the components they worked on and should clearly indicate which components each contributed to in their individual project submission notes.
 
-- GitHub Repository (10%)
+- **GitHub Repository (10%)**
   - A repo under an appropriately name Github "Organization"
   - Sufficient documentation in the top level README to explain to a stranger who you are, what this project was about, and how all of the material in the repo pertains to it.
     - This README should be:
@@ -165,15 +223,15 @@ Submit to instructor a single link to your Github Org. All team members are to c
       - Include links to relevant files in the repo
       - Include links to each of your own Github accounts AND LinkedIn accounts
   - All other deliverables should be included as files in this repo
-- Presentation Material (5%)
+- **Presentation Material (5%)**
   - Slide deck, as a PDF, link in the repo
   - A link to the video of your presentation (when it becomes available) in the repo
-- Network design (20%)
+- **Network design (20%)**
   - A network topology diagram of your systems architecture design.
     - All components must be labeled, and network diagram must be presentable (straight lines) and free of defects/typographical issues. Take your time to create a quality network diagram; do not rush!
     - Clearly indicate what devices are hosting network services, like DHCP, DNS, etc.
-  - A clear, written explaination and justification your network design.
-    - Include a table or chart of network infrustructure and configuration details (yes, this will overlap with your topology -- you must document your network in both ways):
+  - A clear, written explanation and justification your network design.
+    - Include a table or chart of network infrastructure and configuration details (yes, this will overlap with your topology -- you must document your network in both ways):
       - Subnets and their uses
         - Include Subnet Masks, CIDR addresses, etc.
       - DHCP ranges
@@ -181,7 +239,7 @@ Submit to instructor a single link to your Github Org. All team members are to c
         - Ranges of addresses reserved for particular uses
       - Firewall rules
       - Roles and IP address of all important devices (everything but endpoints)
-- SOP and Policy Documentation (10%)
+- **SOP and Policy Documentation (10%)**
   - SOP Requirements:
     - Each SOP should include the following sections:
       - Purpose
